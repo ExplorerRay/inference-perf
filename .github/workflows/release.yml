@@ -137,7 +137,6 @@ jobs:
   #         cache-to: type=gha,mode=max
 
   helm-chart:
-    needs: build-and-publish  # Run after the release is created
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
