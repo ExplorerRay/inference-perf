@@ -6,6 +6,7 @@ on:
 permissions:
   contents: write
   pull-requests: read
+  packages: write # needed for ghcr access
 jobs:
   # build-and-publish:
   #   runs-on: ubuntu-latest
