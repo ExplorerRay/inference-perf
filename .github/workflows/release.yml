@@ -145,13 +145,21 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v4
 
+      - name: Update Chart.yaml version
+        run: |
+          # Remove 'v' prefix from version
+          CHART_VERSION=${GITHUB_REF#refs/tags/v}
+          # Update Chart.yaml with the release version
+          sed -i 's/^version: .*/version: $CHART_VERSION/' deploy/inference-perf/Chart.yaml
+          sed -i 's/^appVersion: .*/appVersion: \"${{ env.RELEASE_VERSION }}\"/' deploy/inference-perf/Chart.yaml
+
       - name: Package Helm Chart
         shell: bash
         run: |
           mkdir -p helm-releases
           # Remove 'v' prefix from version
           CHART_VERSION=${GITHUB_REF#refs/tags/v}
-          helm package deploy/inference-perf -d helm-releases --app-version ${CHART_VERSION} --version ${CHART_VERSION}
+          helm package deploy/inference-perf -d helm-releases
 
       - name: Login to ghcr.io
         uses: docker/login-action@v3
