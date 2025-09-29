@@ -1,6 +1,8 @@
 # inference-perf/values.yaml
 job:
-  image: ""
+  image:
+    name: quay.io/inference-perf/inference-perf
+    tag: ""
   memory: "8G"
 
 logLevel: INFO
