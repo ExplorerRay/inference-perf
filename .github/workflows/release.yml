@@ -151,7 +151,7 @@ jobs:
           CHART_VERSION=${GITHUB_REF#refs/tags/v}
           # Update Chart.yaml with the release version
           sed -i "s/^version: .*/version: $CHART_VERSION/" deploy/inference-perf/Chart.yaml
-          sed -i "s/^appVersion: .*/appVersion: \"${{ env.RELEASE_VERSION }}\"/" deploy/inference-perf/Chart.yaml
+          sed -i "s/^appVersion: .*/appVersion: \"${GITHUB_REF#refs/tags/}\"/" deploy/inference-perf/Chart.yaml
 
       - name: Package Helm Chart
         shell: bash
