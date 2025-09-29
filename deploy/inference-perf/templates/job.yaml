@@ -16,11 +16,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: inference-perf-container
-{{- if eq .Values.job.image.tag "" }}
-          image: "{{ .Values.job.image.name }}:{{ .Chart.AppVersion }}"
-{{- else }}
-          image: "{{ .Values.job.image.name }}:{{ .Values.job.image.tag }}"
-{{- end }}
+          image: "{{ .Values.job.image.name }}:{{ .Values.job.image.tag | default .Chart.AppVersion }}"
           command: ["inference-perf"]
           args:
             - "--config_file"
